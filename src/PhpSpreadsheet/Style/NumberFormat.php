@@ -502,6 +502,9 @@ class NumberFormat extends Supervisor
         $format = preg_replace_callback('/"(.*)"/U', ['self', 'escapeQuotesCallback'], $format);
 
         $dateObj = Date::excelToDateTimeObject($value);
+        if (getenv('PHPSPREADSHEET_FORCE_DATE_FORMAT') !== false && getenv('PHPSPREADSHEET_DATE_FORMAT') !== false) {
+            $format = getenv('PHPSPREADSHEET_DATE_FORMAT');
+        }
         $value = $dateObj->format($format);
     }
 
